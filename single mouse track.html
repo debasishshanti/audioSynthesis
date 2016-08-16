@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>autid test</title>
+</head>
+<body>
+	<div>
+		<span>X: </span>
+		<span id="xCoord"></span>
+	</div>
+	<div>
+		<span>Y: </span>
+		<span id="yCoord"></span>
+	</div>
+	<button onclick="start()">Start</button>
+	<button onclick="stop()">Stop</button>
+	<script type="text/javascript">
+		var context, osc, val;
+		var h = window.innerHeight
+		function start() {
+			context = new window.webkitAudioContext();
+		    osc = context.createOscillator();
+
+		    osc.connect(context.destination);
+		    osc.start(0);
+
+		    document.addEventListener("mousemove",handler );
+		}
+		function stop() {
+			osc.stop();
+			osc.disconnect();
+			document.removeEventListener('mousemove', handler);
+		}
+		function handler(e) {
+	    	val = e.clientY / h * 1000 + 300;
+	    	document.getElementById('yCoord').innerHTML = val;
+	        osc.frequency.value = val;
+	    }
+	</script>
+</body>
+</html>

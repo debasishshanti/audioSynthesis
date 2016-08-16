@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Mix</title>
+</head>
+<body>
+
+	<div id="drumControls">
+		<span>Drum: </span>
+		<button class="start">start</button>
+		<button class="stop">stop</button>
+	</div>
+
+	<div id="songControl">
+		<span>Song: </span>
+		<button class="start">start</button>
+		<button class="stop">stop</button>
+	</div>
+
+	<script src="js/jquery-2.1.3.min.js"></script>
+    <script src="js/Tone.min.js"></script>
+    <script src="js/drums.js"></script>
+    <script src="js/song.js"></script>
+    <script type="text/javascript">
+    	attachDrumStart($("#drumControls .start"));
+    	attachDrumStop($("#drumControls .stop"));
+    	var song = new Song(context);
+    	Tone.Transport.setInterval(function(time){ song.play(time) }, "8n");
+    	song.attachStart($("#songControl .start"));
+    	song.attachStop($("#songControl .stop"));
+    </script>
+</body>
+</html>
