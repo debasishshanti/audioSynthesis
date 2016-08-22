@@ -16,17 +16,11 @@
     	var trackPaths = ['/data/mix/lh1', '/data/mix/lh2', '/data/mix/lh3', '/data/mix/rh1', '/data/mix/rh2', '/data/mix/rh3'],
     		songControllers = [];
     	var audioContext = new AudioContext || new window.webkitAudioContext;
+
     	window.playing = false;
-    	for(var i in trackPaths) {
-    		$.ajax({
-    			url: trackPaths[i],
-    			success: function(data) {
-    				var track = data.track;
-    				var song = new Mix(audioContext, track);
-    				Tone.Transport.setInterval(function(time){ song.play(time) }, "16n");
-    			}
-    		});
-    	}
+    	Tone.Transport.bpm.value = 120;
+    	$.ajax
+    	
     	$('.songControls .start').click(function(){
     		if (window.playing == false) {
 		      window.playing = true;
@@ -39,6 +33,18 @@
 		      Tone.Transport.stop();
 		    }
     	});
+    	function getTracks(paths){
+    		for(var i in paths) {
+	    		$.ajax({
+	    			url: paths[i],
+	    			success: function(data) {
+	    				var track = data.track;
+	    				var song = new Mix(audioContext, track);
+	    				Tone.Transport.setInterval(function(time){ song.play(time) }, "16n");
+	    			}
+	    		});
+	    	}
+    	}
     </script>
 </body>
 </html>
