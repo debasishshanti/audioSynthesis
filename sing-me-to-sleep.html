@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Piano Mix</title>
+</head>
+<body>
+	<div id="songControls">
+		<button class="start">Start</button>
+		<button class="stop">Stop</button>
+	</div>
+	<script src="js/jquery-2.1.3.min.js"></script>
+    <script src="js/Tone.min.js"></script>
+    <script src="js/drums.js"></script>
+    <script src="js/pianoMix"></script>
+    <script type="text/javascript">
+    	var trackPaths = ['/data/mix/lh1', '/data/mix/lh2', '/data/mix/lh3', '/data/mix/rh1', '/data/mix/rh2', '/data/mix/rh3'],
+    		songControllers = [];
+    	var audioContext = new AudioContext || new window.webkitAudioContext;
+    	window.playing = false;
+    	for(var i in trackPaths) {
+    		$.ajax({
+    			url: trackPaths[i],
+    			success: function(data) {
+    				var track = data.track;
+    				var song = new Mix(audioContext, track);
+    				Tone.Transport.setInterval(function(time){ song.play(time) }, "16n");
+    			}
+    		});
+    	}
+    	$('.songControls .start').click(function(){
+    		if (window.playing == false) {
+		      window.playing = true;
+		      Tone.Transport.start();
+		    }
+    	});
+    	$('.songControls .stop').click(function(){
+    		if (window.playing == false) {
+		      window.playing = true;
+		      Tone.Transport.stop();
+		    }
+    	});
+    </script>
+</body>
+</html>
