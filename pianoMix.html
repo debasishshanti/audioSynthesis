@@ -4,22 +4,29 @@
 	<title>Piano Mix</title>
 </head>
 <body>
-	<div id="songControls">
+	<div class="songControls">
 		<button class="start">Start</button>
 		<button class="stop">Stop</button>
 	</div>
 	<script src="js/jquery-2.1.3.min.js"></script>
     <script src="js/Tone.min.js"></script>
-    <script src="js/drums.js"></script>
-    <script src="js/pianoMix"></script>
+    <!-- <script src="js/drums.js"></script> -->
+    <script src="js/pianoMix.js"></script>
     <script type="text/javascript">
-    	var trackPaths = ['/data/mix/lh1', '/data/mix/lh2', '/data/mix/lh3', '/data/mix/rh1', '/data/mix/rh2', '/data/mix/rh3'],
+    	var trackPaths = ['/data/sing-me-to-sleep/lh1.json', '/data/sing-me-to-sleep/lh2.json', '/data/sing-me-to-sleep/lh3.json', '/data/sing-me-to-sleep/rh1.json', '/data/sing-me-to-sleep/rh2.json', '/data/sing-me-to-sleep/rh3.json'],
     		songControllers = [];
     	var audioContext = new AudioContext || new window.webkitAudioContext;
+    	var notesJson;
 
     	window.playing = false;
-    	Tone.Transport.bpm.value = 120;
-    	$.ajax
+    	Tone.Transport.bpm.value = 88;
+    	$.ajax({
+    		url: '/data/piano.json',
+    		success: function(data) {
+    			notesJson = data.pianoNotes;
+    			getTracks(trackPaths);
+    		}
+    	});
     	
     	$('.songControls .start').click(function(){
     		if (window.playing == false) {
@@ -28,19 +35,19 @@
 		    }
     	});
     	$('.songControls .stop').click(function(){
-    		if (window.playing == false) {
-		      window.playing = true;
+    		if (window.playing == true) {
+		      window.playing = false;
 		      Tone.Transport.stop();
 		    }
     	});
-    	function getTracks(paths){
+    	function getTracks(paths){ 
     		for(var i in paths) {
 	    		$.ajax({
 	    			url: paths[i],
 	    			success: function(data) {
 	    				var track = data.track;
-	    				var song = new Mix(audioContext, track);
-	    				Tone.Transport.setInterval(function(time){ song.play(time) }, "16n");
+	    				var song = new Mix(audioContext, track, notesJson);
+	    				Tone.Transport.setInterval(function(time){ song.play(time) }, "8n");
 	    			}
 	    		});
 	    	}
