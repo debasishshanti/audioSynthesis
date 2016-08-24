@@ -40,9 +40,9 @@ Mix.prototype.trigger = function(freq, time) {
 	this.osc.frequency.value = freq;
 	this.osc.type = "triangle";
 
-	this.gain.gain.linearRampToValueAtTime(0.6, time + this.attack/1000);
+	this.gain.gain.exponentialRampToValueAtTime(0.6, time + this.attack/1000);
 
-	this.gain.gain.linearRampToValueAtTime(0.1, time + this.decay/1000);
+	this.gain.gain.exponentialRampToValueAtTime(0.1, time + this.decay/1000);
 
 	this.osc2.start(time);
 	this.osc2.stop(time + (this.decay+10)/1000);
