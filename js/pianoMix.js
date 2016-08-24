@@ -12,6 +12,7 @@ function Mix(context, track, scale){
     this.song = track;
     this.scale = scale;
     this.duration = 0;
+    this.waveform = "triangle";
 }
 
 Mix.prototype.setup = function() {
@@ -38,7 +39,7 @@ Mix.prototype.trigger = function(freq, time) {
 	this.delay.delayTime.value = 0.25;
 
 	this.osc.frequency.value = freq;
-	this.osc.type = "triangle";
+	this.osc.type = this.waveform;
 
 	this.gain.gain.exponentialRampToValueAtTime(0.6, time + this.attack/1000);
 
@@ -73,3 +74,20 @@ Mix.prototype.play = function(time) {
 		this.duration++;
 	}
 }
+
+Mix.prototype.setWaveform = function(value) {
+	this.waveform = value||"triangle";
+}
+Mix.prototype.setAttack = function(value) {
+	this.attack = parseInt(value)||2;
+}
+Mix.prototype.setDecay = function(value) {
+	this.decay = parseInt(value)||250;
+}
+
+
+
+
+
+
+
