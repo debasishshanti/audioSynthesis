@@ -44,6 +44,7 @@
     		for(var i in paths) {
 	    		$.ajax({
 	    			url: paths[i],
+                    cache: false,
 	    			success: function(data) {
 	    				var track = data.track;
 	    				var song = new Mix(audioContext, track, notesJson);
