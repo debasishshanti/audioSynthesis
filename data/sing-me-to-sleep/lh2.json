@@ -34,7 +34,35 @@
 		},
 
 		{
-			"note": "B1",
+			"note": "B2",
+			"duration": 8
+		},
+		{
+			"note": "B3",
+			"duration": 8
+		},
+		{
+			"note": "B3",
+			"duration": 8
+		},
+		{
+			"note": "B3",
+			"duration": 8
+		},
+		{
+			"note": "B3",
+			"duration": 8
+		},
+		{
+			"note": "B3",
+			"duration": 8
+		},
+		{
+			"note": "B3",
+			"duration": 8
+		},
+		{
+			"note": "B3",
 			"duration": 8
 		},
 		{
@@ -42,43 +70,15 @@
 			"duration": 8
 		},
 		{
-			"note": "B2",
+			"note": "B3",
 			"duration": 8
 		},
 		{
-			"note": "B2",
+			"note": "B3",
 			"duration": 8
 		},
 		{
-			"note": "B2",
-			"duration": 8
-		},
-		{
-			"note": "B2",
-			"duration": 8
-		},
-		{
-			"note": "B2",
-			"duration": 8
-		},
-		{
-			"note": "B2",
-			"duration": 8
-		},
-		{
-			"note": "B1",
-			"duration": 8
-		},
-		{
-			"note": "B2",
-			"duration": 8
-		},
-		{
-			"note": "B2",
-			"duration": 8
-		},
-		{
-			"note": "B2",
+			"note": "B3",
 			"duration": 8
 		}
 	]
