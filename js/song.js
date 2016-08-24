@@ -7,7 +7,7 @@ function Song(context) {
 		this.context = audioContext();
 	}
 	this.attack = 10;
-	this.decay = 50;
+	this.decay = 250;
 	this.position = 0;
     this.scale = {
         g: 392,
@@ -34,11 +34,11 @@ Song.prototype.trigger = function(freq, time) {
 	this.osc.frequency.value = freq;
 	this.osc.type = "square";
 
-	this.gain.gain.setValueAtTime(0.5, time + this.attack/1000);
+	this.gain.gain.linearRampToValueAtTime(0.5, time + this.attack/1000);
 
-	this.gain.gain.setValueAtTime(0.1, time + this.decay/1000);
+	this.gain.gain.linearRampToValueAtTime(0.1, time + this.decay/1000);
 
-	this.osc.start(0);
+	this.osc.start(time);
 	this.osc.stop(time + this.decay/1000);
 	/*this.osc.onended = function() {
 		_this.osc.disconnect(_this.gain);

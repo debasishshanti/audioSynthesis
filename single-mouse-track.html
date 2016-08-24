@@ -1,19 +1,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>autid test</title>
+	<title>mouse frequency</title>
 </head>
 <body>
-	<div>
-		<span>X: </span>
-		<span id="xCoord"></span>
-	</div>
 	<div>
 		<span>Y: </span>
 		<span id="yCoord"></span>
 	</div>
 	<button onclick="start()">Start</button>
 	<button onclick="stop()">Stop</button>
+	<br/><br/>
+	<div class="code">
+		<pre>
+			 var context = new window.webkitAudioContext(),
+		        osc = context.createOscillator(),
+		        h = window.innerHeight;
+
+		    osc.connect(context.destination);
+		    osc.start(0);
+
+		    document.addEventListener("mousemove", function(e) {
+		        osc.frequency.value = e.clientY / h * 1000 + 300;
+		    });
+		</pre>
+	</div>
+	<div class="links">
+		<a href="intro.html">Prev</a>   
+		<a href="fm.html">Next</a>
+	</div>
 	<script type="text/javascript">
 		var context, osc, val;
 		var h = window.innerHeight

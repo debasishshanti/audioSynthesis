@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Mary had a little lamb</title>
+</head>
+<body>
+	<button onclick="start()">Start</button>
+	<button onclick="stop()">Stop</button>
+	<br/><br/>
+	<div class="code">
+		<pre>
+			 var audio = new AudioContext() || new window.webkitAudioContext(),
+		        osc = audio.createOscillator(),
+		        position = 0,
+		        scale = {
+		            g: 392,
+		            f: 349.23,
+		            e: 329.63,
+		            b: 493.88
+		        },
+		        song = "gfefgg-fff-gbb-gfefggggffgfe---";
+
+		        osc.connect(audio.destination);
+		        osc.start(0);
+
+		    setInterval(play, 1000 / 4);
+
+		    function play() {
+		        var note = song.charAt(position),
+		            freq = scale[note];
+		        position += 1;
+		        if(position >= song.length) {
+		            position = 0;
+		        }
+		        if(freq) {
+		            osc.frequency.value = freq;
+		        }
+		    }
+		</pre>
+	</div>
+	<div class="links">
+		<a href="double-mouse-track.html">Prev</a>
+		<a href="song-mary-v2.html">Next</a>
+	</div>
+	<script type="text/javascript">
+		var audio = new AudioContext() || new window.webkitAudioContext(),
+			osc = audio.createOscillator(),
+	        position = 0,
+	        scale = {
+	            g: 392,
+	            f: 349.23,
+	            e: 329.63,
+	            b: 493.88
+	        },
+	        song = "gfefgg-fff-gbb-gfefggggffgfe---";
+
+	        osc.connect(audio.destination);
+
+	        var timer;
+		function start() {
+			timer = setInterval(play, 1000 / 4);
+        	osc.start(0);
+		}
+
+		function play() {
+	        var note = song.charAt(position),
+	            freq = scale[note];
+	        position += 1;
+	        if(position >= song.length) {
+	            position = 0;
+	        }
+	        if(freq) {
+	            osc.frequency.value = freq;
+	        }
+	    }
+		function stop() {
+			clearInterval(timer);
+			osc.stop();
+			position = 0;
+		}
+	</script>
+</body>
+</html>

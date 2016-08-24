@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>autid test</title>
+	<title>mouse track FM</title>
 </head>
 <body>
 	<div>
@@ -14,12 +14,44 @@
 	</div>
 	<button onclick="start()">Start</button>
 	<button onclick="stop()">Stop</button>
+	<br/><br/>
+	<div class="code">
+		<pre>
+			var context = new AudioContext() || new window.webkitAudioContext();\,
+		        osc = context.createOscillator(),
+		        osc2 = context.createOscillator(),
+		        gain = context.createGain(),
+		        w = window.innerWidth,
+		        h = window.innerHeight;
+
+		    osc.frequency = 400;
+
+		    osc.connect(context.destination);
+		    osc.start(0);
+
+		    gain.gain.value = 100;
+		    gain.connect(osc.frequency);
+
+		    osc2.frequency.value = 5;
+		    osc2.connect(gain);
+		    osc2.start(0);
+
+		    document.addEventListener("mousemove", function(e) {
+		        osc.frequency.value = e.clientY / h * 1000 + 200;
+		        osc2.frequency.value = e.clientX / w * 30 + 5;
+		    });
+		</pre>
+	</div>
+	<div class="links">
+		<a href="fm.html">Prev</a>
+		<a href="song-mary-v1.html">Next</a>
+	</div>
 	<script type="text/javascript">
 		var context, osc, val, osc1, gain, val1;
 		var h = window.innerHeight,
 			w = window.innerWidth;
 		function start() {
-			context = new window.webkitAudioContext();
+			context = new AudioContext() || new window.webkitAudioContext(),
 		    osc = context.createOscillator();
 		    osc2 = context.createOscillator();
 		    gain = context.createGain();

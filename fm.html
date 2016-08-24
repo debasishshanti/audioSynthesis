@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>FM</title>
+</head>
+<body>
+	<button onclick="start()">Start</button>
+	<button onclick="stop()">Stop</button>
+	<br/><br/>
+	<div class="code">
+		<pre>
+			var context = new AudioContext() || new window.webkitAudioContext();
+
+			var osc = context.createOscillator();
+			osc.frequency.value = 440;
+			osc.connect(context.destination);
+			osc.start(0);
+
+			var gain = context.createGain();
+			gain.gain.value = 100;
+			gain.connect(osc.frequency);
+
+			var osc2 = context.createOscillator();
+			osc2.frequency.value = 1;
+			osc2.connect(gain);
+			osc2.start(0);
+		</pre>
+	</div>
+	<div class="links">
+		<a href="single-mouse-track.html">Prev</a>
+		<a href="double-mouse-track.html">Next</a>
+	</div>
+	<script type="text/javascript">
+		var context, osc, gain, osc2;
+		function start() {
+			context = new AudioContext() || new window.webkitAudioContext();
+
+			osc = context.createOscillator();
+			osc.frequency.value = 440;
+			osc.connect(context.destination);
+			osc.start(0);
+
+			gain = context.createGain();
+			gain.gain.value = 100;
+			gain.connect(osc.frequency);
+
+			osc2 = context.createOscillator();
+			osc2.frequency.value = 1;
+			osc2.connect(gain);
+			osc2.start(0);
+		}
+		function stop() {
+			osc.stop();
+			osc.disconnect();
+
+			gain.disconnect();
+
+			osc2.stop();
+			osc2.disconnect();
+		}
+	</script>
+</body>
+</html>

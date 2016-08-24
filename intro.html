@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Audio API intro</title>
+</head>
+<body>
+	<button onclick="start()">Start</button>
+	<button onclick="stop()">Stop</button>
+	<br/><br/>
+	<div class="code">
+		<pre>
+			var context = new AudioContext() || new window.webkitAudioContext();
+
+			var osc = context.createOscillator();
+			osc.frequency.value = 440;
+			osc.connect(context.destination);
+			osc.start(0);
+		</pre>
+	</div>
+	<div class="links">
+		<a href="pianoMix.html">Prev</a>
+		<a href="single-mouse-track.html">Next</a>
+	</div>
+	<script type="text/javascript">
+		var context, osc;
+		function start() {
+			context = new AudioContext() || new window.webkitAudioContext();
+
+			osc = context.createOscillator();
+			osc.frequency.value = 440;
+			osc.connect(context.destination);
+			osc.start(0);
+		}
+		function stop() {
+			osc.stop();
+			osc.disconnect();
+		}
+	</script>
+</body>
+</html>

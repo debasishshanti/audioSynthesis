@@ -6,15 +6,13 @@
 <body>
 
 	<div id="drumControls">
-		<span>Drum: </span>
 		<button class="start">start</button>
 		<button class="stop">stop</button>
 	</div>
 
-	<div id="songControl">
-		<span>Song: </span>
-		<button class="start">start</button>
-		<button class="stop">stop</button>
+	<div class="links">
+		<a href="song-mary-had-a-little-lamb.html">Prev</a>
+		<a href="pianoMix.html">Next</a>
 	</div>
 
 	<script src="js/jquery-2.1.3.min.js"></script>
@@ -26,8 +24,6 @@
     	attachDrumStop($("#drumControls .stop"));
     	var song = new Song(context);
     	Tone.Transport.setInterval(function(time){ song.play(time) }, "8n");
-    	song.attachStart($("#songControl .start"));
-    	song.attachStop($("#songControl .stop"));
     </script>
 </body>
 </html>

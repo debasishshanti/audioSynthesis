@@ -4,7 +4,7 @@ function Mix(context, track, scale){
 	}
 	else {
 		var audioContext = new AudioContext || new window.webkitAudioContext;
-		this.context = audioContext();
+		this.context = audioContext;
 	}
 	this.attack = 2;
 	this.decay = 250;
@@ -31,12 +31,12 @@ Mix.prototype.trigger = function(freq, time) {
 	var _this = this;
 	this.setup();
 	this.gain.gain.setValueAtTime(0.1, time);
-	this.osc2.frequency.value = 2*freq;
+	this.osc2.frequency.value = freq;
 	// this.osc2.type = "sawtooth";
 
-	this.gain2.gain.value = 0.5;
+	this.gain2.gain.value = 1;
 
-	this.delay.delayTime.value = 0.25;
+	this.delay.delayTime.value = 0.0005;
 
 	this.osc.frequency.value = freq;
 	this.osc.type = this.waveform;
@@ -50,10 +50,6 @@ Mix.prototype.trigger = function(freq, time) {
 
 	this.osc.start(time);
 	this.osc.stop(time + (this.decay+10)/1000);
-	/*this.osc.onended = function() {
-		_this.osc.disconnect(_this.gain);
-		_this.gain.disconnect(_this.context.destination);
-	}*/
 
 }
 
