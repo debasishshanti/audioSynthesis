@@ -28,7 +28,8 @@ Mix.prototype.setup = function() {
 	this.gain.connect(this.context.destination);
 }
 Mix.prototype.trigger = function(freq, time) {
-	var _this = this;
+	var attackTime = this.attack*1000/freq,
+		decayTime = this.decay*1000/freq;
 	this.setup();
 	this.gain.gain.setValueAtTime(0.1, time);
 	this.osc2.frequency.value = freq;
@@ -41,16 +42,28 @@ Mix.prototype.trigger = function(freq, time) {
 	this.osc.frequency.value = freq;
 	this.osc.type = this.waveform;
 
-	this.gain.gain.exponentialRampToValueAtTime(0.6, time + this.attack/1000);
+	this.gain.gain.exponentialRampToValueAtTime(0.8, time + attackTime/1000);
 
-	this.gain.gain.exponentialRampToValueAtTime(0.1, time + this.decay/1000);
+	this.gain.gain.exponentialRampToValueAtTime(0.1, time + decayTime/1000);
 
 	this.osc2.start(time);
-	this.osc2.stop(time + (this.decay+10)/1000);
+	this.osc2.stop(time + (decayTime+10)/1000);
 
 	this.osc.start(time);
-	this.osc.stop(time + (this.decay+10)/1000);
+	this.osc.stop(time + (decayTime+10)/1000);
 
+}
+
+Mix.prototype.stop = function(time) {
+	if(this.gain) {
+		this.gain.gain.exponentialRampToValueAtTime(0.1, time);
+	}
+	if(this.osc2) {
+		this.osc2.stop(time+0.002);
+	}
+	if (this.osc) {
+		this.osc.stop(time+0.002);
+	}
 }
 
 Mix.prototype.play = function(time) {
@@ -64,6 +77,9 @@ Mix.prototype.play = function(time) {
 	    }
 	    if(freq) {
 	        this.trigger(freq, time);
+	    }
+	    else {
+	    	this.stop(time);
 	    }
 	}
 	else {
